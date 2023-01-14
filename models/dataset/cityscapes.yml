@@ -1,0 +1,39 @@
+batch_size: 2
+iters: 80000
+
+train_dataset:
+  type: Dataset
+  dataset_root: ../dataset/seg
+  train_path: ../dataset/seg/train_list.txt
+  num_classes: 4
+  transforms:
+    - type: Resize
+    - type: RandomHorizontalFlip
+    - type: Normalize
+  mode: train
+
+val_dataset:
+  type: Dataset
+  dataset_root: ../dataset/seg
+  val_path: ../dataset/seg/val_list.txt
+  num_classes: 4
+  transforms:
+    - type: Normalize
+  mode: val
+
+
+optimizer:
+  type: sgd
+  momentum: 0.9
+  weight_decay: 4.0e-5
+
+lr_scheduler:
+  type: PolynomialDecay
+  learning_rate: 0.01
+  end_lr: 0
+  power: 0.9
+
+loss:
+  types:
+    - type: CrossEntropyLoss
+  coef: [1]
